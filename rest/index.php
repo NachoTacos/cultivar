@@ -24,7 +24,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
         
         header('Content-Type: application/json');
-        echo json_encode($data);
+        if ($param){
+            echo json_encode($data);
+        } else{
+            echo json_encode($data[0]);
+        }
     } else {
         http_response_code(204);
         echo "No data";
