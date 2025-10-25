@@ -1,12 +1,24 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
-
+import { Image, StyleSheet, Text, View,ScrollView } from 'react-native';
 
 export default function TabOneScreen() {
   // Grid encargada de acomodar temperatura y humedad
   
   return (
-    <View style={styles.container}>
+
+    <ScrollView style={styles.ScrollView}
+    contentContainerStyle={styles.scrollContent}>
+      {/* Mensaje con ícono */}
+      <Image source={require("./plant.png")}
+      style={styles.icon}/>      
+      <View style={styles.messageContainer}>
+        <View style={styles.messageBox}>
+          <Text style={styles.messageText}>
+            Tu planta está creciendo de forma correcta.{"\n"}¡Felicidades!!!
+          </Text>
+        </View>
+      </View>
+
       {/* Temperatura y Humedad */}
       <View style={styles.row}>
         <View style={styles.card}>
@@ -26,17 +38,7 @@ export default function TabOneScreen() {
         <Text style={styles.value}>20 W/M2</Text>
       </View>
 
-      {/* Mensaje con ícono */}
-      <View style={styles.messageContainer}>
-      <Image source={require("./plant.png")}
-      style={styles.icon}/>
-        <View style={styles.messageBox}>
-          <Text style={styles.messageText}>
-            Tu planta está creciendo de forma correcta.{"\n"}¡Felicidades!!!
-          </Text>
-        </View>
-      </View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -51,6 +53,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
   },
+  ScrollView:{
+    flex: 1,
+    backgroundColor: "#fff",
+  },
+  scrollContent:{
+    alignItems: "center",
+    paddingTop: 15,
+  }, 
   card: {
     backgroundColor: "#e3e3e3",
     borderRadius: 15,
@@ -65,6 +75,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     paddingVertical: 25,
     paddingHorizontal: 25,
+    marginBottom:30,
     marginTop: 10,
     alignItems: "center",
     width: 340,
@@ -81,11 +92,12 @@ const styles = StyleSheet.create({
   messageContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 20,
+    marginTop: 30,
+    marginBottom:30,
   },
   icon: {
-    width: 35,
-    height: 35,
+    width: 150,
+    height: 150,
     marginRight: 10,
   },
   messageBox: {

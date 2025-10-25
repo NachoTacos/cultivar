@@ -4,87 +4,25 @@ import { useVideoPlayer, VideoView } from 'expo-video';
 import React, { useState } from "react";
 import { Button, StyleSheet, Switch, Text, View } from "react-native";
 
-
+// Esto del video se quita, lo use nomas como place holder
 const videoSource = 
 'https://www.w3schools.com/html/mov_bbb.mp4';
 
 export default function MonitorScreen() {
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-
-  const [isEnabled2, setIsEnabled2] = useState(false);
-  const toggleSwitch2 = () => setIsEnabled2(previousState2 => !previousState2);
-
-
+ // Parte del video tmb es place holder tambien
   const player = useVideoPlayer(videoSource, player => {
     player.loop = true;
     player.play();
   });
 
-  const { isPlaying } = useEvent(player, 'playingChange', { isPlaying: player.playing });
 
   
 
   return (
+    // donde se genera todo lo visual del vidio es place holder tambien
     <View style={styles.contentContainer}>
       <VideoView style={styles.video} player={player} allowsFullscreen allowsPictureInPicture />
       <View style={styles.controlsContainer}>
-        <Button
-          title={isPlaying ? 'Pause' : 'Play'}
-          onPress={() => {
-            if (isPlaying) {
-              player.pause();
-            } else {
-              player.play();
-            }
-          }}
-        />
-      </View>
-
-      {/*Switch de iluminacion*/}
-    <View style={[styles.controlCard, isEnabled && styles.activeCard]}>
-        <View style={styles.controlContent}>
-          <View style={styles.iconContainer}>
-            <Ionicons
-              name={'bulb'}
-              size={32}
-              color={'#666'}
-            />
-          </View>
-          <View style={styles.textContainer}>
-            <Text style={styles.title}>Encender iluminación</Text>
-          </View>
-          <Switch
-            value={isEnabled}
-            onValueChange={toggleSwitch}
-            trackColor={{ false: '#767577', true: '#81b0ff' }}
-            thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-            style={styles.switch}
-          />
-        </View>
-      </View>
-
-      {/* Switch de control de riego */}
-      <View style={[styles.controlCard, isEnabled2 && styles.activeCard]}>
-        <View style={styles.controlContent}>
-          <View style={styles.iconContainer}>
-            <Ionicons
-              name={'water'}
-              size={32}
-              color={'#666'}
-            />
-          </View>
-          <View style={styles.textContainer}>
-            <Text style={styles.title}>Encender irrigación</Text>
-          </View>
-          <Switch
-            value={isEnabled2}
-            onValueChange={toggleSwitch2}
-            trackColor={{ false: '#767577', true: '#81b0ff' }}
-            thumbColor={isEnabled2 ? '#4A90E2' : '#f4f3f4'}
-            style={styles.switch}
-          />
-        </View>
       </View>
 
     </View>
@@ -92,6 +30,8 @@ export default function MonitorScreen() {
   );
 }
 
+
+//aca en los estilos se modifican cosas como el acomodo, tamaño, color y esas weas
 const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
