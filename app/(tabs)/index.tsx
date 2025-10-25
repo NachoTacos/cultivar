@@ -1,14 +1,41 @@
-import { StyleSheet } from 'react-native';
+import React from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { Text, View } from '@/components/Themed';
 
 export default function TabOneScreen() {
+  // Grid encargada de acomodar temperatura y humedad
+  
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
+      {/* Temperatura y Humedad */}
+      <View style={styles.row}>
+        <View style={styles.card}>
+          <Text style={styles.title}>Temperatura Ambiental</Text>
+          <Text style={styles.value}>35°</Text>
+        </View>
+
+        <View style={styles.card}>
+          <Text style={styles.title}>Humedad Ambiental</Text>
+          <Text style={styles.value}>45%</Text>
+        </View>
+      </View>
+
+      {/* Irradiación Solar */}
+      <View style={styles.cardLarge}>
+        <Text style={styles.title}>Irradiación Solar</Text>
+        <Text style={styles.value}>20 W/M2</Text>
+      </View>
+
+      {/* Mensaje con ícono */}
+      <View style={styles.messageContainer}>
+      <Image source={require("./plant.png")}
+      style={styles.icon}/>
+        <View style={styles.messageBox}>
+          <Text style={styles.messageText}>
+            Tu planta está creciendo de forma correcta.{"\n"}¡Felicidades!!!
+          </Text>
+        </View>
+      </View>
     </View>
   );
 }
@@ -16,16 +43,60 @@ export default function TabOneScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    paddingTop: 15,
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  card: {
+    backgroundColor: "#e3e3e3",
+    borderRadius: 15,
+    paddingVertical: 20,
+    paddingHorizontal: 25,
+    margin: 5,
+    alignItems: "center",
+    width: 160,
+  },
+  cardLarge: {
+    backgroundColor: "#e3e3e3",
+    borderRadius: 15,
+    paddingVertical: 25,
+    paddingHorizontal: 25,
+    marginTop: 10,
+    alignItems: "center",
+    width: 340,
   },
   title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 13,
+    color: "#333",
+    marginBottom: 5,
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+  value: {
+    fontSize: 55,
+    fontWeight: "bold",
+  },
+  messageContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 20,
+  },
+  icon: {
+    width: 35,
+    height: 35,
+    marginRight: 10,
+  },
+  messageBox: {
+    backgroundColor: "#e3e3e3",
+    borderRadius: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    width: 280,
+  },
+  messageText: {
+    fontSize: 13,
+    color: "#222",
   },
 });
