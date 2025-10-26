@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     //To view historic data a param must me specified
     if ($param == "temperature" || $param == "air_hum" || $param == "soil_hum" || $param == "light"){
-        $sql = "SELECT time_stamp, $param FROM readings ORDER BY time_stamp";
+        $sql = "SELECT time_stamp, $param FROM readings ORDER BY time_stamp DESC LIMIT 30";
     }
     else{
         $sql = "SELECT * FROM readings ORDER BY time_stamp DESC LIMIT 1";
@@ -34,11 +34,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         echo "No data";
     }
 
-} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //handle activation state
 } else {
     http_response_code(405);
+    echo("Unsupported method");
 }
 
 $connection->close();
+exit();
 ?>
