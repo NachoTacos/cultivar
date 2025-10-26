@@ -1,4 +1,6 @@
 <?php
+require 'config/allow_cors.php';
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $file = fopen('/srv/connection.txt','r');
     if ($file){

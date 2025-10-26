@@ -1,4 +1,6 @@
 <?php
+require 'config/allow_cors.php';
+
 $state_file = '/srv/activation.json';
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {

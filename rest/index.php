@@ -1,4 +1,5 @@
 <?php
+require 'config/allow_cors.php';
 require 'config/connection.php';
 
 if ($connection->connect_error) {
@@ -34,7 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         echo "No data";
     }
 
-} else {
+}
+else {
     http_response_code(405);
     echo("Unsupported method");
 }
