@@ -24,7 +24,7 @@ const traerDatos = async () => {
     });
     const json = await response.json();
     setTemperatura(json.temperature);
-    setHumedad(json.air_hum);
+    setHumedad(json.soil_hum);
     setIrradiacion(json.light);
     
 
@@ -56,19 +56,19 @@ const traerDatos = async () => {
       <View style={styles.row}>
         <View style={styles.card}>
           <Text style={styles.title}>Temperatura Ambiental</Text>
-          <Text style={styles.value}>`${temperatura}°`</Text>
+          <Text style={styles.value}>{temperatura}°</Text>
         </View>
 
         <View style={styles.card}>
-          <Text style={styles.title}>Humedad Ambiental</Text>
-          <Text style={styles.value}>`${humedad}%`</Text>
+          <Text style={styles.title}>Humedad del Suelo</Text>
+          <Text style={styles.value}>{humedad}%</Text>
         </View>
       </View>
 
       {/* Irradiación Solar */}
       <View style={styles.cardLarge}>
         <Text style={styles.title}>Irradiación Solar</Text>
-        <Text style={styles.value}>`${irradiacion}W/M2`</Text>
+        <Text style={styles.value}>{irradiacion}W/M2</Text>
       </View>
 
     </ScrollView>
