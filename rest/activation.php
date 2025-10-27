@@ -1,5 +1,9 @@
 <?php
+require 'config/allow_cors.php';
+
 $state_file = '/srv/activation.json';
+
+require 'config/socket.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $activation = file_get_contents($state_file);
@@ -27,6 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             "heat" => $heating
         );
         file_put_contents($state_file, json_encode($res));
+        socket_write($sock, "caca");
+
         http_response_code(201);
         exit("Activation successful");
     }

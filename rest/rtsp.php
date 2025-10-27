@@ -1,4 +1,6 @@
 <?php
+require 'config/allow_cors.php';
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $file = fopen('/srv/connection.txt','r');
     if ($file){
@@ -10,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             "url" => substr($route, 6, 14)."/cam",
             "port" => substr($route, 21, -1)
         );
+        fclose($file);
         exit(json_encode($res));
     }
     else{
