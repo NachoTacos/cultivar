@@ -19,11 +19,9 @@ def read_sensors(serial: serial.Serial)-> None:
     with database.cursor() as cursor:
         while True:
             insertion = "INSERT INTO readings (temperature, air_hum, soil_hum, light) VALUES (%s, %s, %s, %s)"
-            print("Sí")
-            #Variables reading --------------------------------
             #Read variables command
-            serial.write(b'\x0000')
-
+            serial.write("0".encode("utf-8"))
+            sleep(1)
             input = serial.readline().decode("utf-8").removesuffix("\r\n")
             vars = input.split(",")
             if len(vars) !=4:
@@ -34,4 +32,4 @@ def read_sensors(serial: serial.Serial)-> None:
             database.commit()
 
             #Time between readings
-            sleep(5)
+            sleep(60)
