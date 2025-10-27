@@ -1,5 +1,29 @@
-import React from 'react';
-import { Image, StyleSheet, Text, View,ScrollView } from 'react-native';
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+
+//Paleta de colores y constantes de estilo
+const theme = {
+  colors: {
+    background: '#e3ffdaff',
+    cardBackground: '#a0df87ff',
+    primaryText: '#252725ff',
+    secondaryText: '#303030ff',
+    accent: '#4c87afff',
+  },
+  spacing: {
+    small: 5,
+    medium: 10,
+    large: 15,
+  },
+  borderRadius: 15,
+  fontSizes: {
+    title: 18,
+    status: 14,
+  },
+  fontWeights: {
+    medium: '500',
+    semiBold: '600',
+  },
+};
 
 export default function TabOneScreen() {
   // Grid encargada de acomodar temperatura y humedad
@@ -43,72 +67,67 @@ export default function TabOneScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  ScrollView: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    paddingTop: 15,
+    backgroundColor: theme.colors.background,
+  },
+  scrollContent: {
+    alignItems: 'center',
+    paddingTop: theme.spacing.large,
   },
   row: {
-    flexDirection: "row",
-    justifyContent: "center",
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
-  ScrollView:{
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-  scrollContent:{
-    alignItems: "center",
-    paddingTop: 15,
-  }, 
   card: {
-    backgroundColor: "#e3e3e3",
-    borderRadius: 15,
+    backgroundColor: theme.colors.cardBackground,
+    borderRadius: theme.borderRadius,
     paddingVertical: 20,
     paddingHorizontal: 25,
-    margin: 5,
-    alignItems: "center",
+    margin: theme.spacing.small,
+    alignItems: 'center',
     width: 160,
   },
   cardLarge: {
-    backgroundColor: "#e3e3e3",
-    borderRadius: 15,
+    backgroundColor: theme.colors.cardBackground,
+    borderRadius: theme.borderRadius,
     paddingVertical: 25,
     paddingHorizontal: 25,
-    marginBottom:30,
-    marginTop: 10,
-    alignItems: "center",
+    marginBottom: 30,
+    marginTop: theme.spacing.medium,
+    alignItems: 'center',
     width: 340,
   },
   title: {
     fontSize: 13,
-    color: "#333",
+    color: theme.colors.secondaryText,
     marginBottom: 5,
   },
   value: {
     fontSize: 55,
-    fontWeight: "bold",
+    fontWeight: 'bold',
+    color: theme.colors.primaryText,
   },
   messageContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginTop: 30,
-    marginBottom:30,
+    marginBottom: 30,
   },
   icon: {
     width: 150,
     height: 150,
-    marginRight: 10,
+    marginRight: theme.spacing.medium,
   },
   messageBox: {
-    backgroundColor: "#e3e3e3",
-    borderRadius: 15,
-    paddingVertical: 10,
-    paddingHorizontal: 15,
+    backgroundColor: theme.colors.cardBackground,
+    borderRadius: theme.borderRadius,
+    paddingVertical: theme.spacing.medium,
+    paddingHorizontal: theme.spacing.large,
     width: 280,
   },
   messageText: {
     fontSize: 13,
-    color: "#222",
+    color: theme.colors.primaryText,
   },
 });
