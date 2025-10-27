@@ -1,6 +1,8 @@
 import socket
 import os
 from serial import Serial
+from time import sleep
+import json
 
 #Unix socket config
 SOCKET_PATH = "/tmp/api_observer.sock"
@@ -20,5 +22,17 @@ def listen_and_forward(serial: Serial)-> None:
         data = conn.recv(1024)
         if data:
             print("Command input recieved")
-            serial.write(b'\x1111')
+
+            states = json.load(open("/srv/activation.json","r"))
+            
+            req = 1
+            if states["illumination"]:
+                req += 1
+            if states["heat"]:
+                req += 2
+
+            serial.write(str(req).encode("utf-8"))
+            sleep(2)
+            output = serial.readline().decode("utf-8").removesuffix("\r\n")
+            print(f"response: {output}")
         conn.close()
