@@ -10,7 +10,7 @@ def read_sensors(serial: serial.Serial)-> None:
             "host": os.environ["DB_HOST"],
             "user": os.environ["DB_USER"],
             "password": os.environ["DB_PASS"],
-            "database": os.environ["DB_DATABASE"],
+            "database": os.environ["DB_NAME"],
             "port": 3306,
             "raise_on_warnings": True
         },
