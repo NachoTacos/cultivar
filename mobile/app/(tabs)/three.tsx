@@ -1,13 +1,50 @@
 import { Ionicons } from "@expo/vector-icons";
-import React, { useState } from "react";
+import { resolve } from "path";
+import React, { useState, useRef } from "react";
 import {
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+  Keyboard,
 } from "react-native";
+
+// API chat completion
+async function chatCompletion(){
+  const system_prompt = "Eres un agente de apoyo en un sistema de monitoreo de un invernadero hidroponico\
+  debes apoyar al usuario con respecto a dudas unicamente sobre hidroponia, dando respuestas cortas y concisas.\
+  debes recibir al usuario con la siguiente pregunta: Hola! ¿Con qué te puedo ayudar?";
+  console.log(process.env.EXPO_PUBLIC_DEEPSEEK_API_KEY);
+  try{
+    const response = await fetch("https://api.deepseek.com/chat/completions",{
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept":'application/json',
+        "Authorization": "Bearer " + process.env.EXPO_PUBLIC_DEEPSEEK_API_KEY
+      },
+      body:JSON.stringify({
+        "model":"deepseek-chat",
+        "messages":[
+          {"role":"system", "content":system_prompt},
+          {"role":"user","content":"Hola!"}
+        ],
+        "stream":true
+      })
+    });
+    console.log(response);
+  } catch(error){
+    console.error(error);
+  }
+}
+
+chatCompletion();
+
 
 export default function ChatScreen() {
   const [messages, setMessages] = useState([
@@ -19,70 +56,81 @@ export default function ChatScreen() {
     },
   ]);
   const [inputText, setInputText] = useState("");
+  const scrollViewRef = useRef<ScrollView>(null);
 
   const sendMessage = () => {
     if (inputText.trim() === "") return;
-
     const newMessage = {
       id: messages.length + 1,
       text: inputText,
       sender: "user",
     };
-
     setMessages([...messages, newMessage]);
     setInputText("");
-    // Aquí luego puedes conectar el LLM (por ejemplo, API call)
+    setTimeout(() => scrollViewRef.current?.scrollToEnd({ animated: true }), 100);
   };
 
   return (
-    <View style={styles.container}>
-
-      <ScrollView style={styles.chatContainer}>
-        {messages.map((msg) => (
-          <View
-            key={msg.id}
-            style={[
-              styles.messageContainer,
-              msg.sender === "user"
-                ? styles.userMessage
-                : styles.botMessage,
-            ]}
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === "android" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "android" ? 80 : 0}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={{ flex: 1 }}>
+          <ScrollView
+            style={styles.chatContainer}
+            ref={scrollViewRef}
+            onContentSizeChange={() =>
+              scrollViewRef.current?.scrollToEnd({ animated: true })
+            }
+            keyboardShouldPersistTaps="handled" 
           >
-            <View style={styles.iconContainer}>
-              {msg.sender === "user" ? (
-                <Ionicons name="person-circle" size={35} color="black" />
-              ) : (
-                <Ionicons name="map" size={35} color="green" />
-              )}
-            </View>
+            {messages.map((msg) => (
+              <View
+                key={msg.id}
+                style={[
+                  styles.messageContainer,
+                  msg.sender === "user" ? styles.userMessage : styles.botMessage,
+                ]}
+              >
+                <View style={styles.iconContainer}>
+                  {msg.sender === "user" ? (
+                    <Ionicons name="person-circle" size={35} color="black" />
+                  ) : (
+                    <Ionicons name="leaf" size={35} color="green" />
+                  )}
+                </View>
+                <View
+                  style={[
+                    styles.textBubble,
+                    msg.sender === "user" ? styles.userBubble : styles.botBubble,
+                  ]}
+                >
+                  <Text style={styles.messageText}>{msg.text}</Text>
+                </View>
+              </View>
+            ))}
+          </ScrollView>
 
-            <View
-              style={[
-                styles.textBubble,
-                msg.sender === "user"
-                  ? styles.userBubble
-                  : styles.botBubble,
-              ]}
-            >
-              <Text style={styles.messageText}>{msg.text}</Text>
+          <View style={styles.inputWrapper}>
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                placeholder="Presione para escribir algo..."
+                value={inputText}
+                onChangeText={setInputText}
+                onSubmitEditing={sendMessage}
+                returnKeyType="send"
+              />
+              <TouchableOpacity onPress={sendMessage} style={styles.sendButton}>
+                <Ionicons name="arrow-up-circle" size={28} color="gray" />
+              </TouchableOpacity>
             </View>
           </View>
-        ))}
-      </ScrollView>
-
-      {/* Input */}
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Presione para escribir algo..."
-          value={inputText}
-          onChangeText={setInputText}
-        />
-        <TouchableOpacity onPress={sendMessage} style={styles.sendButton}>
-          <Ionicons name="arrow-up-circle" size={22} color="gray" />
-        </TouchableOpacity>
-      </View>
-    </View>
+        </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -92,12 +140,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     paddingTop: 15,
     paddingHorizontal: 15,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: "600",
-    color: "#001F5B",
-    marginBottom: 10,
   },
   chatContainer: {
     flex: 1,
@@ -132,13 +174,17 @@ const styles = StyleSheet.create({
   messageText: {
     color: "#000",
   },
+  inputWrapper: {
+    backgroundColor: "#fff",
+  },
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#e3e3e3",
     borderRadius: 20,
     paddingHorizontal: 10,
-    marginVertical: 10,
+    paddingVertical: 8,
+    marginBottom: Platform.OS === "android" ? 25 : 5,
   },
   input: {
     flex: 1,

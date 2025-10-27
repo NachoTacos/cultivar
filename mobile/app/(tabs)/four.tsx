@@ -90,7 +90,7 @@ export default function MonitorScreen() {
             value={isEnabled}
             onValueChange={toggleSwitch}
             trackColor={{ false: "#767577", true: "#81b0ff" }}
-            thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+            thumbColor={isEnabled ? "#4A90E2" : "#f4f3f4"}
             style={styles.switch}
           />
         </View>
