@@ -52,13 +52,6 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="two"
-        options={{
-          title: 'Watch',
-          tabBarIcon: ({ color }) => <FontAwesome6 name="plant-wilt" size={24} color={color}/>,
-        }}
-      />
-      <Tabs.Screen
         name="three"
         options={{
           title: 'Chat',

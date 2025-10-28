@@ -31,7 +31,8 @@
     },
     "plugins": [
       "expo-router",
-      "expo-video"
+      "expo-video",
+      "react-native-vlc-media-player"
     ],
     "experiments": {
       "typedRoutes": true
