@@ -59,7 +59,7 @@ def read_sensors(serial: serial.Serial)-> None:
                 serial.write(str(req).encode("utf-8"))
 
             #Time between readings
-            sleep(60)
+            sleep(3600)
 
 def ai_manage(prompt: str) -> dict:
     client = OpenAI(api_key=os.environ["API_KEY"], base_url="https://api.deepseek.com")

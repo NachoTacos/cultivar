@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             "heat" => $heating
         );
         file_put_contents($state_file, json_encode($res));
-        socket_write($sock, "caca");
+        socket_write($sock, "activation");
 
         http_response_code(201);
         exit("Activation successful");
