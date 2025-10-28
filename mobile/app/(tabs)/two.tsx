@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
-import VLCPlayer from 'react-native-vlc-media-player';
+import { VLCPlayer } from 'react-native-vlc-media-player';
 
 //Paleta de colores y constantes de estilo
 const theme = {
@@ -115,12 +115,11 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
     borderWidth: 2,
-    borderColor: 'transparent', // Se mantiene ya que es un valor común
+    borderColor: 'transparent',
   },
   activeCard: {
     borderColor: theme.colors.accent,
-    // Se usa un tono más claro del cardBackground para el estado activo
-    backgroundColor: '#c8f7b6ff', 
+    backgroundColor: '#c8f7b6ff',
   },
   controlContent: {
     flexDirection: 'row',
@@ -133,7 +132,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flex: 1,
-    marginLeft: 12, // Se mantiene como valor específico del diseño
+    marginLeft: 12,
   },
   title: {
     fontSize: theme.fontSizes.title,
