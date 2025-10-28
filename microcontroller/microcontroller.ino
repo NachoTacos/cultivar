@@ -65,9 +65,6 @@ void set_display_mode(int mode){
 }
 
 void setup() {
-  Serial.begin(9600);
-  while (!Serial);
-
   carrier.withCase();
   carrier.begin();
 
@@ -80,6 +77,9 @@ void setup() {
 
   carrier.display.fillScreen(ST77XX_BLACK);
   carrier.display.setTextSize(4);
+
+  Serial.begin(9600);
+  while (!Serial);
 }
 
 void loop() {
