@@ -12,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             "url" => substr($route, 6, 14)."/cam",
             "port" => substr($route, 21, -1)
         );
+        fclose($file);
         exit(json_encode($res));
     }
     else{
