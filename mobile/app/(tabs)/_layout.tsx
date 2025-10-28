@@ -5,6 +5,7 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { Tabs } from 'expo-router';
 import React from 'react';
 
+
 import { useClientOnlyValue } from '@/components/useClientOnlyValue';
 import { useColorScheme } from '@/components/useColorScheme';
 import Colors from '@/constants/Colors';
@@ -27,22 +28,6 @@ export default function TabLayout() {
         // Disable the static render of the header on web
         // to prevent a hydration error in React Navigation v6.
         headerShown: useClientOnlyValue(false, true),
-
-        // --- INICIO DE MODIFICACIONES ---
-
-        // 1. Estilos de la barra de tabs (inferior)
-        tabBarStyle: {
-          backgroundColor: '#4CAF50', // Verde para el fondo de la barra de tabs
-        },
-        tabBarInactiveTintColor: 'rgba(255, 255, 255, 0.7)', // Color inactivo
-
-        // 2. Estilos del Header (superior)
-        headerStyle: {
-          backgroundColor: '#4CAF50', // Verde para el fondo del header
-        },
-        headerTintColor: '#FFFFFF', // Blanco para el título del header
-
-        // --- FIN DE MODIFICACIONES ---
       }}>
       <Tabs.Screen
         name="index"
@@ -72,7 +57,8 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <FontAwesome5 name="oil-can" size={24} color={color}/>
         }}
       />
-  
+ 
     </Tabs>
   );
 }
+

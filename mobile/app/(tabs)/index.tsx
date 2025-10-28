@@ -1,44 +1,11 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import React from 'react';
 import { Image, StyleSheet, Text, View,ScrollView } from 'react-native';
 
-
-
 export default function TabOneScreen() {
+  // Grid encargada de acomodar temperatura y humedad
   
-  // Variables que se estaran actualizando cada hora
-  const[temperatura, setTemperatura] = useState([]);
-  const[humedad, setHumedad] = useState([]);
-  const[irradiacion, setIrradiacion] = useState([]);
-  
-
-// Fetch datos
-const traerDatos = async () => {  
-  try{
-    const response = await fetch('https://untwistable-helena-unexpiated.ngrok-free.dev/',{
-      method:"GET",
-      headers:{
-        "ngrok-skip-browser-warning": "true",
-        "Accept": "application/json"
-      }
-    });
-    const json = await response.json();
-    setTemperatura(json.temperature);
-    setHumedad(json.soil_hum);
-    setIrradiacion(json.light);
-    
-
-  }catch(error){
-    console.error(error);
-  }
-}
-
-  useEffect(() => {
-    traerDatos();
-  }, []);
-  
-
   return (
+
     <ScrollView style={styles.ScrollView}
     contentContainerStyle={styles.scrollContent}>
       {/* Mensaje con ícono */}
@@ -56,19 +23,19 @@ const traerDatos = async () => {
       <View style={styles.row}>
         <View style={styles.card}>
           <Text style={styles.title}>Temperatura Ambiental</Text>
-          <Text style={styles.value}>{temperatura}°</Text>
+          <Text style={styles.value}>35°</Text>
         </View>
 
         <View style={styles.card}>
-          <Text style={styles.title}>Humedad del Suelo</Text>
-          <Text style={styles.value}>{humedad}%</Text>
+          <Text style={styles.title}>Humedad Ambiental</Text>
+          <Text style={styles.value}>45%</Text>
         </View>
       </View>
 
       {/* Irradiación Solar */}
       <View style={styles.cardLarge}>
         <Text style={styles.title}>Irradiación Solar</Text>
-        <Text style={styles.value}>{irradiacion}W/M2</Text>
+        <Text style={styles.value}>20 W/M2</Text>
       </View>
 
     </ScrollView>
