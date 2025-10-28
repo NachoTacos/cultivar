@@ -14,7 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $location = "Durango, Dgo. México";
-    $date = getdate();
+    $sys_date = getdate();
+    $date = $sys_date["mday"]."/".$sys_date["month"];
 
     $system_prompt = "Eres un agente de apoyo en un sistema de monitoreo de un huerto hidropónico.
     Estás hablando por medio de una aplicación móvil conectada al huerto,
